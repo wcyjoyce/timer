@@ -8,7 +8,21 @@ class App extends Component {
 
   selectTab(index) {
     this.setState({ selected: this.state.tabs[index] })
-    console.log(this.state.selected);
+  };
+
+  renderContent() {
+    switch (this.state.selected) {
+      case "stopwatch":
+        return "Stopwatch"
+      case "pomodoro":
+        return "Pomodoro"
+      case "tabata":
+        return "Tabata"
+      case "custom":
+        return "Custom"
+      default:
+        return "Stopwatch"
+    };
   };
 
   render() {
@@ -18,6 +32,9 @@ class App extends Component {
           {this.state.tabs.map((tab, index) =>
             <button className="tab btn btn-info" onClick={() => this.selectTab(index)} key={index}>{tab}</button>
           )}
+        </div>
+        <div className="content">
+          {this.renderContent()}
         </div>
       </div>
     );
