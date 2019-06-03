@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import Stopwatch from "./stopwatch.jsx";
+import Pomodoro from "./pomodoro.jsx";
 
 class App extends Component {
   state = {
@@ -17,7 +18,7 @@ class App extends Component {
       case "stopwatch":
         return <Stopwatch />
       case "pomodoro":
-        return "Pomodoro"
+        return <Pomodoro />
       case "tabata":
         return "Tabata"
       case "custom":
