@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import Stopwatch from "./stopwatch.jsx";
+
 class App extends Component {
   state = {
     selected: "stopwatch",
@@ -13,7 +15,7 @@ class App extends Component {
   renderContent() {
     switch (this.state.selected) {
       case "stopwatch":
-        return "Stopwatch"
+        return <Stopwatch />
       case "pomodoro":
         return "Pomodoro"
       case "tabata":
@@ -21,7 +23,7 @@ class App extends Component {
       case "custom":
         return "Custom"
       default:
-        return "Stopwatch"
+        return <Stopwatch />
     };
   };
 
