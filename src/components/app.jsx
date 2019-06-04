@@ -2,11 +2,12 @@ import React, { Component } from "react";
 
 import Stopwatch from "./stopwatch.jsx";
 import Pomodoro from "./pomodoro.jsx";
+import Tabata from "./tabata.jsx";
 
 class App extends Component {
   state = {
-    selected: "stopwatch",
-    tabs: ["stopwatch", "pomodoro", "tabata", "custom"]
+    selected: "tabata",
+    tabs: ["stopwatch", "countdown", "pomodoro", "tabata", "custom"]
   };
 
   selectTab(index) {
@@ -17,12 +18,14 @@ class App extends Component {
     switch (this.state.selected) {
       case "stopwatch":
         return <Stopwatch />
+      case "countdown":
+        return <h1>Countdown</h1>
       case "pomodoro":
         return <Pomodoro />
       case "tabata":
-        return "Tabata"
+        return <Tabata />
       case "custom":
-        return "Custom"
+        return <h1>Custom</h1>
       default:
         return <Stopwatch />
     };
