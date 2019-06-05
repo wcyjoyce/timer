@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import Stopwatch from "./stopwatch.jsx";
+import Countdown from "./countdown.jsx";
 import Pomodoro from "./pomodoro.jsx";
 import Tabata from "./tabata.jsx";
 
@@ -19,7 +20,7 @@ class App extends Component {
       case "stopwatch":
         return <Stopwatch />
       case "countdown":
-        return <h1>Countdown</h1>
+        return <Countdown />
       case "pomodoro":
         return <Pomodoro />
       case "tabata":
