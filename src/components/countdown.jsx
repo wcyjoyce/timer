@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import timeFormat from "../constants/timeFormat.js";
+
 class Countdown extends Component {
   state = { time: 0, started: false };
 
@@ -36,11 +38,9 @@ class Countdown extends Component {
     return (
       <div className="countdown">
         <h1>Countdown</h1>
-        <h4>
-          Time: <input type="text" pattern="[0-9]*" onChange={this.handleInput} value={this.state.time} />
-        </h4>
+        <h4>Time: <input type="text" pattern="[0-9]*" onChange={this.handleInput} value={this.state.time} /></h4>
         <div>
-          <button className="btn btn-danger" onClick={this.startCountdown}>Start</button>
+          <button className="btn btn-danger" disabled={this.state.started} onClick={this.startCountdown}>Start</button>
           <button className="btn btn-danger" onClick={this.stopCountdown}>Stop</button>
           <button className="btn btn-danger" onClick={this.resetCountdown}>Reset</button>
         </div>
