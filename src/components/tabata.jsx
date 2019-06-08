@@ -6,44 +6,35 @@ class Tabata extends Component {
   tabata = () => {
     this.setState({ started: true });
 
-    // started: true
     if (this.state.started) {
       if (this.state.time > 0) {
-        // started and there is time
-        this.setState({ time: this.state.time - 1 })
+        this.setState({ time: this.state.time - 1 });
       } else {
-        // started and there is no time
-        this.setState({ break: true })
-      }
-    }
+        this.setState({ break: true });
+      };
+    };
 
-    // break: true
     if (this.state.break) {
       if (this.state.rest > 0) {
-        // break and there is rest time
-        this.setState({ rest: this.state.rest - 1 })
+        this.setState({ rest: this.state.rest - 1 });
       } else {
-        // break === true and there is no time
         if (this.state.rounds > 0) {
-          this.setState({ rounds: this.state.rounds - 1 })
-          this.setState({ break: false })
-          this.setState({ time: 10 })
+          this.setState({ rounds: this.state.rounds - 1, break: false, time: 10 });
         } else {
-          console.log('finished')
-          this.setState({ started: false, break: false })
-        }
-      }
-    }
+          console.log('finished');
+          this.setState({ started: false, break: false });
+        };
+      };
+    };
   };
 
   startTabata = () => {
     setInterval(this.tabata, 1000) // 1-second intervals
     if (this.state.rounds > 0 || this.state.time > 0 || this.state.rest > 0) {
-      this.setState({ rounds: this.state.rounds - 1 })
-      this.setState({ time: this.state.time - 1 })
-    }
+      this.setState({ rounds: this.state.rounds - 1, time: this.state.time - 1 });
+    };
     this.setState({ started: true });
-  }
+  };
 
   stopTabata = () => {
     this.setState({ started: false });
