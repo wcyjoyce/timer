@@ -6,18 +6,11 @@ class List extends Component {
   renderList() {
     return (
       this.props.list.map((time, index) => {
-        if (this.props.list[index - 1] > 0) {
-          return (
-            <li key={index}>
-              Lap {index + 1}: {this.props.list[index] - this.props.list[index - 1]} seconds
-            </li>
-          )
-        } else {
-          return <li key={index}>Lap {index + 1}: {this.props.list[index]} seconds</li>
-        }
+        var difference = this.props.list[index - 1] > 0 ? this.props.list[index] - this.props.list[index - 1] : this.props.list[index];
+        return <li key={index}>Lap {index + 1}: {difference} seconds</li>
       })
-    )
-  }
+    );
+  };
 
   render() {
     return (
