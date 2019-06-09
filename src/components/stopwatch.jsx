@@ -15,12 +15,12 @@ class Stopwatch extends Component {
   };
 
   lapTimer = (event) => {
-    this.setState({ laps: this.state.laps + 1 })
-    let currentLap = this.state.time;
-    this.state.list.push(currentLap)
+    this.setState({ laps: this.state.laps + 1 });
+    this.state.list.push(this.state.time);
   };
 
   stopTimer = (event) => {
+    this.state.list.push(this.state.time);
     this.setState({ started: false });
     clearInterval(this.timer);
   };
@@ -39,7 +39,7 @@ class Stopwatch extends Component {
         <h1>Stopwatch</h1>
         <h4>Time: {this.state.time}</h4>
         <button className="btn btn-danger" onClick={this.startTimer}>Start</button>
-        <button className="btn btn-danger" onClick={this.lapTimer}>Lap</button>
+        <button className="btn btn-danger" disabled={!this.state.started} onClick={this.lapTimer}>Lap</button>
         <button className="btn btn-danger" onClick={this.stopTimer}>Stop</button>
         <button className="btn btn-danger" onClick={this.resetTimer}>Reset</button>
         <List list={this.state.list} />
