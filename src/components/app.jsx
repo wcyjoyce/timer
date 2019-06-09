@@ -7,8 +7,8 @@ import Tabata from "./tabata.jsx";
 
 class App extends Component {
   state = {
-    selected: "tabata",
-    tabs: ["stopwatch", "countdown", "pomodoro", "tabata", "custom"]
+    selected: "stopwatch",
+    tabs: ["stopwatch", "countdown", "pomodoro", "tabata", "interval"]
   };
 
   selectTab(index) {
@@ -25,8 +25,8 @@ class App extends Component {
         return <Pomodoro />
       case "tabata":
         return <Tabata />
-      case "custom":
-        return <h1>Custom</h1>
+      case "interval":
+        return <h1>Interval</h1>
       default:
         return <Stopwatch />
     };
