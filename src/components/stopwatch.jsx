@@ -20,9 +20,11 @@ class Stopwatch extends Component {
   };
 
   stopTimer = (event) => {
-    this.state.list.push(this.state.time);
-    this.setState({ started: false });
-    clearInterval(this.timer);
+    if (this.state.started) {
+      this.state.list.push(this.state.time);
+      this.setState({ started: false });
+      clearInterval(this.timer);
+    }
   };
 
   resetTimer = (event) => {
