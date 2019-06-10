@@ -1,19 +1,33 @@
 import React, { Component } from "react";
 
+import Tasks from "../helpers/tasks.jsx";
+
 class Pomodoro extends Component {
-  state = { time: 25, started: false };
+  state = { time: 5, rest: 1, started: false, break: false, rounds: 0 };
+
+
+  pomodoro = () => {
+    const workTime = 5;
+    const restTime = 1;
+
+    if (this.state.started) {
+      if (!this.state.break) {
+        this.state.time > 0
+          ? this.setState({ time: this.state.time - 1, rest: restTime })
+          : this.setState({ break: true })
+      } else {
+        this.state.rest > 0
+          ? this.setState({ rest: this.state.rest - 1, time: workTime })
+          : this.setState({ break: false, rounds: this.state.rounds + 1 })
+      }
+    }
+  }
 
   startPomodoro = (event) => {
-    if (!this.state.started && this.state.time > 0) {
-      this.pomodoro = setInterval(
-        () =>
-        this.state.time === 0
-          ? (clearInterval(this.pomodoro), this.setState({ started: false }))
-          : this.setState({ time: this.state.time - 1 }),
-        1000
-      ); // 1-second intervals
-    this.setState({ started: true });
-    };
+    this.pomodoro = (
+      setInterval(this.pomodoro, 1000),
+      this.setState({ started: true })
+    )
   };
 
   stopPomodoro = (event) => {
@@ -22,12 +36,8 @@ class Pomodoro extends Component {
   };
 
   resetPomodoro = (event) => {
-    this.setState({ time: 25, started: false });
+    this.setState({ time: 5, rest: 1, started: false, break: false, rounds: 0 });
     clearInterval(this.pomodoro);
-  };
-
-  handleInput = (event) => {
-    this.setState({ time: event.target.value })
   };
 
   render() {
@@ -36,9 +46,9 @@ class Pomodoro extends Component {
     return (
       <div className="pomodoro">
         <h1>Pomodoro</h1>
-        <h4>
-          Time: <input type="text" pattern="[0-9]*" onChange={this.handleInput} value={this.state.time} />
-        </h4>
+        <h4>Pomodoro #{this.state.rounds}</h4>
+        <h4>Time: {this.state.time} // Rest: {this.state.rest}</h4>
+        <Tasks />
         <div>
           <button className="btn btn-danger" onClick={this.startPomodoro}>Start</button>
           <button className="btn btn-danger" onClick={this.stopPomodoro}>Stop</button>
