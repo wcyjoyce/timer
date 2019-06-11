@@ -1,34 +1,34 @@
 import React, { Component } from "react";
 
-import List from "../constants/list.jsx";
+import Laps from "../helpers/laps.jsx";
 
 class Stopwatch extends Component {
-  state = { time: 0, started: false, laps: 0, list: [] };
+  state = { time: 0, started: false, rounds: 0, laps: [] };
 
   startTimer = (event) => {
     if (!this.state.started) {
       this.timer = setInterval(
         () => this.setState({ time: this.state.time + 1 })
       , 1000); // 1-second intervals
-      this.setState({ started: true, laps: this.state.laps + 1 });
+      this.setState({ started: true, rounds: this.state.rounds + 1 });
     };
   };
 
   lapTimer = (event) => {
-    this.setState({ laps: this.state.laps + 1 });
-    this.state.list.push(this.state.time);
+    this.setState({ rounds: this.state.rounds + 1 });
+    this.state.laps.push(this.state.time);
   };
 
   stopTimer = (event) => {
     if (this.state.started) {
-      this.state.list.push(this.state.time);
+      this.state.laps.push(this.state.time);
       this.setState({ started: false });
       clearInterval(this.timer);
     }
   };
 
   resetTimer = (event) => {
-    this.setState({ time: 0, started: false, laps: 0, list: [] });
+    this.setState({ time: 0, started: false, rounds: 0, laps: [] });
     clearInterval(this.timer);
   };
 
@@ -44,7 +44,7 @@ class Stopwatch extends Component {
         <button className="btn btn-danger" disabled={!this.state.started} onClick={this.lapTimer}>Lap</button>
         <button className="btn btn-danger" onClick={this.stopTimer}>Stop</button>
         <button className="btn btn-danger" onClick={this.resetTimer}>Reset</button>
-        <List list={this.state.list} />
+        <Laps laps={this.state.laps} />
       </div>
     );
   };
