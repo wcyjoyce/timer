@@ -29,7 +29,7 @@ class Tabata extends Component {
   };
 
   startTabata = () => {
-    setInterval(this.tabata, 1000) // 1-second intervals
+    this.tabata = setInterval(this.tabata, 1000) // 1-second intervals
     if (this.state.rounds > 0 || this.state.time > 0 || this.state.rest > 0) {
       this.setState({ rounds: this.state.rounds - 1, time: this.state.time - 1 });
     };
