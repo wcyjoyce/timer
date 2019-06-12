@@ -11,17 +11,40 @@ class Tasks extends Component {
     return (
       this.state.tasks.map((task, index) => {
         return (
-          <div key={index}><Task task={task}/></div>
+          <div key={index}><Task task={task} updateStatus={this.updateStatus}/></div>
         );
       })
     );
   };
 
+  renderForm() {
+    return (
+      <div className="addition">
+        <input className="category" type="text" defaultValue={"Category"} />
+        <input className="description" type="text" defaultValue={"Description"} />
+        <button onClick={this.addTask}>Submit</button>
+      </div>
+    )
+  };
+
+  updateStatus = (task) => {
+    this.setState({ completed: !task.completed });
+    console.log(task.completed)
+  };
+
+  clearTasks = () => {
+    this.setState({ tasks: [] });
+  };
+
   render() {
     return (
       <div className="tasks">
-        <h5><strong>TODO List</strong></h5>
+        <h5>
+          <strong>TODO List</strong> {" "}
+          <button onClick={this.clearTasks}>Clear</button>
+        </h5>
         {this.renderTasks()}
+        {this.renderForm()}
       </div>
     );
   };
