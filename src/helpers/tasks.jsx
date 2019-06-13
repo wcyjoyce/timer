@@ -1,30 +1,50 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Task from "./task.jsx";
-import placeholder from "./placeholder.js";
+import { fetchTasks, clearTasks } from "../actions";
+// import placeholder from "./placeholder.js";
 
 class Tasks extends Component {
-  state = { tasks: placeholder };
+  // state = { tasks: placeholder };
+  componentDidMount() {
+    this.props.fetchTasks();
+  };
+
+  // renderTasks() {
+  //   if (this.state.tasks) {
+  //     return (
+  //       this.state.tasks.map((task, index) => {
+  //         return (
+  //           <div key={index}><Task task={task} updateStatus={this.updateStatus} /></div>
+  //         )
+  //       })
+  //     );
+  //   } else {
+  //     return <h3>Your TODO list is empty.</h3>;
+  //   };
+  // };
 
   renderTasks() {
-    console.log(this.state.tasks)
-    return (
-      this.state.tasks.map((task, index) => {
-        return (
-          <div key={index}><Task task={task} updateStatus={this.updateStatus}/></div>
-        );
-      })
-    );
+    if (this.props.tasks) {
+      return (
+        this.props.tasks.map((task, index) => {
+          return <div key={index}><Task task={task} updateStatus={this.updateStatus}/></div>;
+        })
+      );
+    } else {
+      return <h3>Your TODO list is empty.</h3>;
+    };
   };
 
   renderForm() {
     return (
-      <div className="addition">
+      <form className="addition" onClick={this.addTask}>
         <input className="category" type="text" defaultValue={"Category"} />
         <input className="description" type="text" defaultValue={"Description"} />
-        <button onClick={this.addTask}>Submit</button>
-      </div>
-    )
+        <input type="submit" value="Submit" />
+      </form>
+    );
   };
 
   updateStatus = (task) => {
@@ -32,16 +52,21 @@ class Tasks extends Component {
     console.log(task.completed)
   };
 
-  clearTasks = () => {
-    this.setState({ tasks: [] });
+  addTask = (event) => {
+    event.preventDefault();
   };
+
+  // clearTasks = () => {
+  //   this.setState({ tasks: [] });
+  // };
 
   render() {
     return (
       <div className="tasks">
         <h5>
           <strong>TODO List</strong> {" "}
-          <button onClick={this.clearTasks}>Clear</button>
+          {/*<button onClick={this.clearTasks}>Clear</button>*/}
+          <button onClick={this.props.clearTasks}>Clear</button>
         </h5>
         {this.renderTasks()}
         {this.renderForm()}
@@ -50,4 +75,9 @@ class Tasks extends Component {
   };
 };
 
-export default Tasks;
+function mapStateToProps(state) {
+  return { tasks: state.tasks, task: state.task };
+};
+
+// export default Tasks;
+export default connect(mapStateToProps, { fetchTasks, clearTasks })(Tasks);
