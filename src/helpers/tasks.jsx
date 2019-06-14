@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Task from "./task.jsx";
-import { fetchTasks, clearTasks } from "../actions";
+import { fetchTasks, clearTasks, addTask } from "../actions";
 // import placeholder from "./placeholder.js";
 
 class Tasks extends Component {
@@ -39,7 +39,7 @@ class Tasks extends Component {
 
   renderForm() {
     return (
-      <form className="addition" onClick={this.addTask}>
+      <form className="addition" onSubmit={this.addTask}>
         <input className="category" type="text" defaultValue={"Category"} />
         <input className="description" type="text" defaultValue={"Description"} />
         <input type="submit" value="Submit" />
@@ -54,6 +54,7 @@ class Tasks extends Component {
 
   addTask = (event) => {
     event.preventDefault();
+    this.props.addTask(this.props.task);
   };
 
   // clearTasks = () => {
@@ -80,4 +81,4 @@ function mapStateToProps(state) {
 };
 
 // export default Tasks;
-export default connect(mapStateToProps, { fetchTasks, clearTasks })(Tasks);
+export default connect(mapStateToProps, { fetchTasks, clearTasks, addTask })(Tasks);
